@@ -1,32 +1,24 @@
 import React, { useState } from 'react';
 import AddTodo from '../AddTodo/AddTodo';
-import { BsTrashFill } from 'react-icons/bs';
-import style from './TodoList.module.css';
 import Todo from '../Todo/Todo';
+import styles from './TodoList.module.css';
 
 export default function TodoList({ filter }) {
   const [todos, setTodos] = useState([
-    { id: '1', text: '장보기', status: 'active' },
-    { id: '2', text: '공부하기', status: 'active' },
+    { id: '123', text: '장보기', status: 'active' },
+    { id: '124', text: '공부하기', status: 'active' },
   ]);
 
-  const handleAdd = (todo) => {
-    setTodos([...todos, todo]);
-  };
-
-  const handleUpdate = (updated) => {
+  const handleAdd = (todo) => setTodos([...todos, todo]);
+  const handleUpdate = (updated) =>
     setTodos(todos.map((t) => (t.id === updated.id ? updated : t)));
-  };
-
-  const handleDelete = (deleted) => {
+  const handleDelete = (deleted) =>
     setTodos(todos.filter((t) => t.id !== deleted.id));
-  };
 
   const filtered = getFilteredItems(todos, filter);
-
   return (
-    <>
-      <ul>
+    <section className={styles.container}>
+      <ul className={styles.list}>
         {filtered.map((item) => (
           <Todo
             key={item.id}
@@ -36,9 +28,8 @@ export default function TodoList({ filter }) {
           />
         ))}
       </ul>
-
       <AddTodo onAdd={handleAdd} />
-    </>
+    </section>
   );
 }
 
